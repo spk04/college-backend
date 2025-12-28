@@ -6,9 +6,10 @@ const Student = require("./models/Student");
 const app = express();
 
 connectDB();
+app.use(express.json());
 app.use(express.static("public"));
 
-app.use(express.json());
+
 
 
 app.post("/register", async (req, res) => {

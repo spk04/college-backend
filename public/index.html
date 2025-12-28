@@ -40,10 +40,10 @@ async function register() {
   });
 
   const text = await res.text();
-  result.innerText = text();
+  result.innerText = text;
 }
 
-<!--
+/*
     
 async function login() {
   const res = await fetch(baseUrl + "/login", {
@@ -56,7 +56,7 @@ async function login() {
   });
   result.innerText = await res.text();
 }
--->
+*/
 
 async function fetchStudentDetails(username) {
   const res = await fetch(baseUrl + "/students/" + username);

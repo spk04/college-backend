@@ -1,15 +1,13 @@
-const PORT = process.env.PORT || 3000;
-<<<<<<< HEAD
+const express = require("express");
+const connectDB = require("./config/db");
 
-=======
->>>>>>> dcdd98fcf03732b4df693fdf73ab52fbc32f8805
 const Student = require("./models/Student");
 
-const connectDB = require("./config/db");
+const app = express();
+
 connectDB();
 
-const express = require("express");
-const app = express();
+
 
 app.use(express.json());
 
@@ -34,6 +32,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

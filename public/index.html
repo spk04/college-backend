@@ -20,6 +20,16 @@
 <input id="logPass" placeholder="Password" type="password">
 <button onclick="login()">Login</button>
 
+<h2>Update / Delete Profile</h2>
+
+<input id="updateCgpa" type="number" step="0.01" placeholder="New CGPA">
+<button onclick="updateProfile()">Update CGPA</button>
+
+<br><br>
+
+<button onclick="deleteProfile()">Delete My Account</button>
+
+
 <p id="result"></p>
 
 <script>
@@ -38,6 +48,45 @@ async function register() {
       cgpa: Number(document.getElementById("cgpa").value)
     })
   });
+
+  async function updateProfile() {
+  const username = document.getElementById("logUser").value.trim();
+  const newCgpa = Number(document.getElementById("updateCgpa").value);
+
+  if (!username || !newCgpa) {
+    result.innerText = "Enter username and new CGPA";
+    return;
+  }
+
+  const res = await fetch(baseUrl + "/students/" + username, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      cgpa: newCgpa
+    })
+  });
+
+  result.innerText = await res.text();
+}
+
+async function deleteProfile() {
+  const username = document.getElementById("logUser").value.trim();
+
+  if (!username) {
+    result.innerText = "Enter username to delete";
+    return;
+  }
+
+  const confirmDelete = confirm("Are you sure you want to delete your account?");
+  if (!confirmDelete) return;
+
+  const res = await fetch(baseUrl + "/students/" + username, {
+    method: "DELETE"
+  });
+
+  result.innerText = await res.text();
+}
+
 
   const text = await res.text();
   result.innerText = text;

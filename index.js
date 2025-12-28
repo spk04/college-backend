@@ -30,6 +30,23 @@ app.post("/register", async (req, res) => {
   }
 });
 
+
+app.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    const student = await Student.findOne({ username, password });
+
+    if (!student) {
+      return res.status(401).send("Invalid username or password");
+    }
+
+    res.status(200).send("Login successful");
+  } catch (error) {
+    res.status(500).send("Login failed");
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
